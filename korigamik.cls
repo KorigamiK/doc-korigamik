@@ -47,9 +47,13 @@
 \newcommand*{\rollno}[1]{
 	\renewcommand*{\@rollno}{#1}
 }
-\newcommand*{\@logoimage}{}
-\newcommand*{\logoimage}[1]{
-	\renewcommand*{\@logoimage}{#1}
+\newcommand*{\@logoimagepath}{}
+\newcommand*{\@logoimagescale}{0.5}
+\newcommand*{\@logolabel}{<Logo label>}
+\newcommand*{\logoimage}[3]{
+	\renewcommand*{\@logoimagepath}{#1}
+	\renewcommand*{\@logoimagescale}{#2}
+	\renewcommand*{\@logolabel}{#3}
 }
 \newcommand*{\@titlelabel}{<Something here>}
 \newcommand*{\titlelabel}[1]{
@@ -78,11 +82,12 @@
 		\thispagestyle{empty}
 		\begin{center}
 			\begin{flushright}
-				\ifx\@logoimage\empty
+				\ifx\@logoimagepath\empty
 					\square
 					\\<your logo here>
 				\else
-					\includegraphics[width=0.5\textwidth]{\@logoimage}
+					\includegraphics[scale=\@logoimagescale]{\@logoimagepath}
+					\Large {\\ \textbf{\@logolabel}}
 				\fi
 			\end{flushright}
 		\end{center}
