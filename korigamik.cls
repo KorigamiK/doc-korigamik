@@ -9,9 +9,6 @@
 \usetikzlibrary{positioning,calc}
 \RequirePackage{color,hyperref,graphicx}
 \definecolor{linkcolour}{rgb}{0.7,0.2,0.2}
-\hypersetup{colorlinks,breaklinks,
-	linkcolor=linkcolour,citecolor=linkcolour,
-	filecolor=linkcolour, urlcolor=linkcolour}
 
 % Page layout
 \RequirePackage{fancyhdr}
@@ -22,12 +19,12 @@
 }
 \fancypagestyle{followingpage}{%
 	\fancyhf{} % clear all six fields
-	\fancyhead[LO, L]{\footnotesize \@header}
-	\fancyhead[RO]{\footnotesize \nouppercase\leftmark}
-	\fancyhead[R]{\footnotesize \nouppercase\leftmark}
+	\fancyhead[LO, L]{\@header}
+	\fancyhead[RO]{\nouppercase\leftmark}
+	\fancyhead[R]{\nouppercase\leftmark}
 
 	\fancyfoot{}
-	\fancyfoot[L,LO]{\hfill\footnotesize\thepage\hfill}
+	\fancyfoot[L,LO]{\hfill\thepage\hfill}
 }
 
 \pagestyle{followingpage}
@@ -46,6 +43,14 @@
 \newcommand*{\@rollno}{<rollno>}
 \newcommand*{\rollno}[1]{
 	\renewcommand*{\@rollno}{#1}
+}
+\newcommand*{\@subject}{<subject>}
+\newcommand*{\subject}[1]{
+	\renewcommand*{\@subject}{#1}
+}
+\newcommand*{\@keywords}{<keywords>}
+\newcommand*{\keywords}[1]{
+	\renewcommand*{\@keywords}{#1}
 }
 \newcommand*{\@logoimagepath}{}
 \newcommand*{\@logoimagescale}{0.5}
@@ -74,6 +79,12 @@
 	\end{tikzpicture}
 }
 
+\hypersetup{colorlinks,breaklinks,
+linkcolor=linkcolour,citecolor=linkcolour,
+filecolor=linkcolour, urlcolor=linkcolour,
+pdftitle={\@title}, pdfauthor={\@author}
+pdfsubject={\@subject}, pdfkeywords={\@keywords},
+}
 
 % Title page
 \renewcommand{\maketitle}{%
@@ -212,3 +223,7 @@
 % Redefine the label for the description environment
 \renewcommand*\descriptionlabel[1]{\hspace\labelsep
 	\normalfont\itshape #1}
+
+% Table of Contents
+\renewcommand*\contentsname{\centering \Huge Index \\} % Change the name of the table of contents
+\setcounter{tocdepth}{3} % Set the depth of the table of contents
