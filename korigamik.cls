@@ -22,7 +22,7 @@
 	\fancyhead[LO, L]{\@header}
 	\fancyhead[RO]{\nouppercase\leftmark}
 	\fancyhead[R]{\nouppercase\leftmark}
-
+	\setlength{\headheight}{15pt}
 	\fancyfoot{}
 	\fancyfoot[L,LO]{\hfill\thepage\hfill}
 }
@@ -225,5 +225,5 @@ pdfsubject={\@subject}, pdfkeywords={\@keywords},
 	\normalfont\itshape #1}
 
 % Table of Contents
-\renewcommand*\contentsname{\centering \Huge Index \\} % Change the name of the table of contents
+\renewcommand*\contentsname{\centering \Huge Index \vskip 1cm}
 \setcounter{tocdepth}{3} % Set the depth of the table of contents
