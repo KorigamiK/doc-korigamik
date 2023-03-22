@@ -96,9 +96,9 @@ pdfsubject={\@subject}, pdfkeywords={\@keywords},
 
 % Title page
 \renewcommand{\maketitle}{%
+	\newgeometry{tmargin=1in,bmargin=.5in}
 	\makeatletter
 	\begin{titlepage}
-		\thispagestyle{empty}
 		\begin{center}
 			\begin{flushright}
 				\ifx\@logoimagepath\empty
@@ -157,6 +157,7 @@ pdfsubject={\@subject}, pdfkeywords={\@keywords},
 
 	\end{titlepage}
 	\makeatother
+	\restoregeometry
 }
 
 \renewcommand\section{\@startsection {section}{1}{\z@}%
