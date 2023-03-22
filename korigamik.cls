@@ -8,7 +8,7 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,calc}
 \RequirePackage{color,hyperref,graphicx}
-\definecolor{linkcolour}{rgb}{0.7,0.2,0.2}
+\definecolor{linkcolour}{rgb}{0.286,0.286,0.286}
 
 % Page layout
 \RequirePackage{fancyhdr}
@@ -64,13 +64,21 @@
 \newcommand*{\titlelabel}[1]{
 	\renewcommand*{\@titlelabel}{#1}
 }
-\newcommand*{\@semester}{<Semester>}
+\newcommand*{\@semester}{<semester>}
 \newcommand*{\semester}[1]{
 	\renewcommand*{\@semester}{#1}
 }
-\newcommand*{\@header}{}
+\newcommand*{\@header}{<header>}
 \newcommand*{\header}[1]{
 	\renewcommand*{\@header}{#1}
+}
+\newcommand*{\@bottomnote}{<bottom note>}
+\newcommand*{\bottomnote}[1]{
+	\renewcommand*{\@bottomnote}{#1}
+}
+\newcommand*{\@course}{<course>}
+\newcommand*{\course}[1]{
+	\renewcommand*{\@course}{#1}
 }
 
 \newcommand{\square}{
@@ -122,17 +130,28 @@ pdfsubject={\@subject}, pdfkeywords={\@keywords},
 
 		\vspace*{2cm}
 		\begin{center}
-			\begin{tabular}[h]{r | l}
-				Name     & \textbf{\@author}          \\
-				Roll No  & \textbf{\textit{\@rollno}} \\
-				Semester & \textbf{\@semester}        \\
-				Course   & \textbf{\textit{CICPC09}}  \\
-			\end{tabular}
+			\begin{minipage}{\textwidth}
+				\begin{tabular}[h]{l  l}
+					Name     & \textbf{\@author}          \\
+					\ifx\@rollno\empty
+					\else
+					Roll No. & \textbf{\textit{\@rollno}} \\
+					\fi
+					\ifx\@semester\empty
+					\else
+					Semester & \textbf{\@semester}        \\
+					\fi
+					\ifx\@course\empty
+					\else
+					Course   & \textbf{\textit{\@course}} \\
+					\fi
+				\end{tabular}
+			\end{minipage}
 		\end{center}
 		\vfill
 
 		\begin{center}
-			\textsc{\large Department of Computer Science \& Engineering}\\[0.4cm]
+			\textsc{\large \@bottomnote}\\[0.4cm]
 			{\large \today}
 		\end{center}
 
