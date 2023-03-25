@@ -1,8 +1,6 @@
 # KorigamiK's Document Class
 
-## A document class for LaTeX
-
-This is my[1] own document class for LaTeX. It is designed to be used for writing documents for my University courses. It is based on the `article` class.
+This is my[1] own document class for LaTeX. It is designed to be used for writing documents for writing University/School project and lab reports. It is based on the `article` class.
 
 ## Usage
 
