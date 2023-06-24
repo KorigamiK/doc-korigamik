@@ -14,9 +14,13 @@
 
 
 
+
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{korigamik}
     [2023/06/24 v1.10 KorigamiK LaTeX Template]
+
+
+
 
 \LoadClass[12pt]{article}
 \RequirePackage[a4paper,margin=1in,tmargin=1.5in]{geometry}
@@ -49,9 +53,7 @@
 \pagestyle{followingpage}
 \AtBeginDocument{\thispagestyle{firstpage}}
 \linespread{1.069}
-
 \definecolor{linkcolour}{rgb}{0.286,0.286,0.286}
-
 \newcommand*{\@rollno}{<rollno>}
 \newcommand*{\rollno}[1]{ \renewcommand*{\@rollno}{#1} }
 \newcommand*{\@subject}{<subject>}
@@ -228,7 +230,7 @@ Course   & \textbf{\textit{\@course}} \\
 \renewcommand*\contentsname{\centering \Huge Index \vskip 1cm}
 \setcounter{tocdepth}{3} % Set the depth of the table of contents
 
-%% 
+
 %% Copyright (C) 2023 by Kushagra Lakhwani <korigamik@gmail.com>
 %% 
 %% KorigamiK class is free software: you can redistribute it and/or modify
@@ -243,6 +245,5 @@ Course   & \textbf{\textit{\@course}} \\
 %% 
 %% You should have received a copy of the GNU General Public License
 %% along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
-%% 
 %%
 %% End of file `korigamik.cls'.

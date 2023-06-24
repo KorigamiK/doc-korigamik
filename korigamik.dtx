@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 %
 % Copyright (C) 2023 by Kushagra Lakhwani <korigamik@gmail.com>
-% -------------------------------------------------------
+% -------------------------------------------------------------
 
 %<*internal>
 \iffalse
@@ -29,7 +29,6 @@ korigamik:| KorigamiK LaTeX Template
 \endpreamble
 
 \postamble
-
 Copyright (C) 2023 by Kushagra Lakhwani <korigamik@gmail.com>
 
 KorigamiK class is free software: you can redistribute it and/or modify
@@ -44,21 +43,16 @@ General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
-
 \endpostamble
 
 \usedir{tex/latex/korigamik}
-\generate{
-  \file{\jobname.cls}{\from{\jobname.dtx}{class}}
-}
+\generate{ \file{\jobname.cls}{\from{\jobname.dtx}{class}} }
 
 %</install>
 %<install>\endbatchfile
 %<*internal>
 \usedir{source/latex/korigamik}
-\generate{
-  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
-}
+\generate{ \file{\jobname.ins}{\from{\jobname.dtx}{install}} }
 \nopreamble\nopostamble
 \ifx\fmtname\nameofplainTeX
   \expandafter\endbatchfile
@@ -69,6 +63,7 @@ along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
 % \fi
 %
 % \iffalse
+
 %<*driver>
 \ProvidesFile{korigamik.dtx}
 %</driver>
@@ -77,54 +72,98 @@ along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
 %<*class>
     [2023/06/24 v1.10 KorigamiK LaTeX Template]
 %</class>
+
 %<*driver>
-\documentclass{ltxdoc}
-\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
-\usepackage[numbered]{hypdoc}
+\documentclass{l3doc}
+\usepackage[english]{babel}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
+\DisableImplementation
+
+\makeatletter
+\renewcommand\maketitle[1]{%
+  \noindent
+  \hspace{-0.5in}
+  \begin{minipage}{\textwidth}
+    \renewcommand\thefootnote{\fnsymbol{footnote}}
+    \let\thanks\footnote
+    {
+      \centering
+      {\Huge \@title}\\[\baselineskip]
+      {\Large \@author}\\[\baselineskip]
+      {\Large \@date}\\[\baselineskip]
+    }
+    \ifx\\#1\\\else
+        \subsection*{\hfill\abstractname\hfill\null}
+        \setlength{\columnsep}{.5cm}%
+        #1
+    \fi
+  \end{minipage}}
+  
+\makeatother
 \begin{document}
   \DocInput{\jobname.dtx}
 \end{document}
 %</driver>
+
 % \fi
 %
 % \GetFileInfo{\jobname.dtx}
-% \DoNotIndex{\newcommand,\newenvironment}
+% \changes{v1.00}{2023/03/27}{First public release}
+% \changes{v1.10}{2023/06/24}{Added documentation and fixed bugs}
 %
-%\title{The \textsf{korigamik} class \thanks{This file
-%   describes version \fileversion, last revised \filedate.}
-%}
-%\author{Kushagra Lakhwani\thanks{E-mail: korigamik@gmail.com}}
+% \title{The \pkg{korigamik} class}
+% \author{Kushagra Lakhwani\thanks{E-mail: \href{mailto:korigamik@gmail.com}{korigamik\meta{at}gmail.com}}}
+% \date{\fileversion \quad \today}
 %
-%\maketitle
-%
-%\changes{v1.00}{2023/03/27}{First public release}
-%\changes{v1.10}{2023/06/24}{Added documentation and fixed bugs}
-%
-% \begin{abstract}
-%   The \textsf{KorigamiK} class is used for typesetting documents for university or 
+%\maketitle{\pkg{KorigamiK} is a \LaTeX{} class used for typesetting documents for university or 
 %   school projects and lab reports. It is based on the article class with 
 %   modifications to allow for more flexible front-matter among other changes.
-% \end{abstract}
+%   Please file bug reports and feature requests on 
+%	the GitHub repository \footnote{ \url{https://github.com/korigamik/doc-korigamik} }.
+%}
 %
 % \section{Usage}
 %
 % ==== Put descriptive text here. ====
 %
-% \DescribeMacro{\dummyMacro}
-% This macro does nothing.\index{doing nothing|usage} It is merely an
-% example.  If this were a real macro, you would put a paragraph here
-% describing what the macro is supposed to do, what its mandatory and
-% optional arguments are, and so forth.
+% \subsection{Package Options}
+% \begingroup
+%   \RenewDocumentCommand \item { r[] e= d() }
+%     {\par\medskip\noindent\llap
+%       {\smash{\begin{tabular}{@{}l@{}}\toprule
+%         \textsf{#1}\\\bottomrule\end{tabular}}~~}%^^A
+%      \IfValueT{#2}{=~~\!\meta{#2}\hfill
+%        \IfValueT{#3}{\quad(default: \texttt{#3})}\null
+%        \newline}\ignorespaces}
 %
-% \DescribeEnv{dummyEnv}
-% This environment does nothing.  It is merely an example.
-% If this were a real environment, you would put a paragraph here
-% describing what the environment is supposed to do, what its
-% mandatory and optional arguments are, and so forth.
+% \item[nopar]={boolean}(false)
+%   Changes the initial default separator between each paragraph of
+%   \cs{lipsum} from \cs{par} to \cs{space}, and the other way around
+%   for \cs{lipsum*}.
 %
+% \subsection{User Commands}
+%
+% \begin{function}{\lipsum}
+%   \begin{syntax}
+%     \cs{lipsum}\meta{*}\oarg{par range}\oarg{sentence range}
+%   \end{syntax}
+%   \cs{lipsum} outputs the \meta{par range} from the
+%   currently active dummy text.  If \meta{par range} is not given
+%   or is empty, the \textsf{default-range} (initially |1-7|) is output.
+%   ^^A
+%   If a \meta{sentence range} is given, the selected paragraphs are
+%   split into sentences, numbered starting from~1, and the specified
+%   range of sentences is taken out from those paragraphs.
+%   ^^A
+%   If the \meta{*} version is used, a different set of separators is
+%   inserted around the paragraphs or sentences.
+%
+%   \cs{lipsum} changes the active language to that of the dummy text
+%   for typesetting, so the proper hyphenation patterns are used.
+% \end{function}
+
 %\StopEventually{
 %  \PrintChanges
 %  \PrintIndex
@@ -134,19 +173,19 @@ along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
 % The implementation of the \textsf{korigamik} class is given below.
 %
 %
-% \textbf{Derive your class from the \textsf{article} class.}
+% \subsection*{Derive your class from the \textsf{article} class.}
 %    \begin{macrocode}
 \LoadClass[12pt]{article}
 \RequirePackage[a4paper,margin=1in,tmargin=1.5in]{geometry}
 %    \end{macrocode}
 
-% \textbf{Required packages}
+% \subsection*{Required packages}
 %    \begin{macrocode}
 \RequirePackage{tikz,color,hyperref,graphicx}
 \usetikzlibrary{positioning,calc}
 %    \end{macrocode}
 
-% \textbf{Font settings}
+% \subsection*{Font settings}
 %    \begin{macrocode}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern} % modernized version of the Computer Modern font family  
@@ -155,7 +194,7 @@ along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
 \RequirePackage[protrusion=true,expansion=false]{microtype} % enabling character protrusion) (disabling font expansion)
 %    \end{macrocode}
 
-% \textbf{Page layout}
+% \subsection*{Page layout}
 %    \begin{macrocode}
 \RequirePackage{fancyhdr}
 \fancypagestyle{firstpage}{%
@@ -177,15 +216,15 @@ along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
 \AtBeginDocument{\thispagestyle{firstpage}}
 \linespread{1.069}
 %    \end{macrocode}
-
+%
 % \begin{macro}{\linkcolour}
 % This macro defines the colour of the hyperlinks.
 %    \begin{macrocode}
 \definecolor{linkcolour}{rgb}{0.286,0.286,0.286}
 %    \end{macrocode}
 % \end{macro}
-
-% \textbf{Configurations}
+%
+% \subsection*{Configurations}
 %    \begin{macrocode}
 \newcommand*{\@rollno}{<rollno>}
 \newcommand*{\rollno}[1]{	\renewcommand*{\@rollno}{#1} }
@@ -211,7 +250,7 @@ along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
 \newcommand*{\course}[1]{	\renewcommand*{\@course}{#1} }
 %    \end{macrocode}
 
-% \textbf{Hyperref settings}
+% \subsection*{Hyperref settings}
 %    \begin{macrocode}
 \hypersetup{  colorlinks,breaklinks,
   linkcolor=linkcolour,citecolor=linkcolour,
@@ -301,7 +340,7 @@ along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
 %    \end{macrocode}
 % \end{macro}
 
-% \textbf{Define new sectioning commands}
+% \subsection*{Define new sectioning commands}
 %    \begin{macrocode}
 \renewcommand\section{\@startsection {section}{1}{\z@}%
   {-3.5ex \@plus -1ex \@minus -.2ex}%
@@ -332,7 +371,7 @@ along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
 		\expandafter\def\csname#2\endcsname{#1}}}
 %    \end{macrocode}
 
-% \textbf{Define some logos}
+% \subsection*{Define some logos}
 %    \begin{macrocode}
 \makeatletter
 \tpj@deflogo{TeX}{T\kern-.15em\lower.5ex\hbox{E}\kern-.07em X\spacefactor1000\relax}
@@ -352,7 +391,7 @@ along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
 %    \end{macrocode}
 
 
-% \textbf{Lists}
+% \subsection*{Lists}
 %
 % Save the original itemize, enumerate, and description environments
 %    \begin{macrocode}
@@ -415,7 +454,7 @@ along with KorigamiK class.  If not, see <http://www.gnu.org/licenses/>.
 
 %
 %    \begin{macrocode}
-\endinput
 %    \end{macrocode}
 
 %\Finale
+\endinput
