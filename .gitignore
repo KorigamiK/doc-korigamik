@@ -226,3 +226,7 @@ TSWLatexianTemp*
 *.sta
 
 .vscode/
+
+*.ins
+*.hd
+refer/
